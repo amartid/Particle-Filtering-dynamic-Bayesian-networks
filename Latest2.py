@@ -14,8 +14,12 @@ tableB=[] #temporary table for saving values
 tableC=[] #weigh factor table
 posprob=[] #probability table
 windprob=[] #probability table
+
+
+
+
 def make_init(tableA): #initial condition creation
-    tableA=np.random.randint(1,4,int(10e3))
+    tableA=np.random.randint(1,4,int(100))
     for i in tableA:
 #       x=random.random()
 #       if x < 0.5 :    #if i want to have random sign for the initial condition
@@ -45,17 +49,17 @@ there are not any observations for t=4 according to the problem encountered.
 
 def wind(tableA):
     x=random.random()
-    for i in tableA :
-        if tableA[i] < 0 :                #if Wind E then do this
-            if x>= 0.7 : 
+    for i in range(len(tableA)):
+        if x>= 0.7 : 
+            if tableA[i] < 0 :                #if Wind E then do this
                 tableA[i]=tableA[i]*(-1)
-        if tableA[i] > 0 :                #if Wind W then do this
-            if x<= 0.3 : 
+        if x<= 0.3 :
+            if tableA[i] > 0 :                #if Wind W then do this
                 tableA[i]=tableA[i]*(-1)
     return tableA
 
 def position(tableA):
-    for i in tableA:                      #position values dont change for LE,RW
+    for i in range(len(tableA)):          #position values dont change for LE,RW
         x=random.random()
         if tableA[i] == -2 and x <= 0.5 : #for CE
             tableA[i] = -3
@@ -68,7 +72,7 @@ def position(tableA):
     return tableA
 
 def weight_factor(tableC):
-    for i in tableA:
+    for i in range(len(tableA)):
         if abs(tableA[i])==1 or abs(tableA[i])==3: 
             tableC.append(0.2)
         if abs(tableA[i])==2:
@@ -91,17 +95,35 @@ def sampling(tableB,tableA):
 
 def presentProbP(tableA) :                 #Calculation of present time position probability
     posprob.clear()
-    x = np.absolute(tableA)
+    #x = np.absolute(tableA)               #if i want to save it on a list
     for i in range(1,4):
-        tempcount = np.count_nonzero(x == i)
+        tempcount = np.count_nonzero(np.absolute(tableA) == i)
         # find posprob upto 2 decimal places
         posprob.append(round(tempcount / len(tableA) , 2))
     return posprob
 
 def presentProbW(tableA) :                #Calculation of present time wind probability
     windprob.clear()
-    windprob.append((tableA<0).sum()/len(tableA))
-    windprob.append((tableA>0).sum()/len(tableA))
+    pos_count, neg_count = 0, 0  
+    # iterating each number in list
+    for num in tableA:
+          
+        # checking condition
+        if num > 0:
+            pos_count += 1
+      
+        else:
+            neg_count += 1
+    windprob.append(round(pos_count / len(tableA) , 2))
+    windprob.append(round(neg_count / len(tableA) , 2))
+    
+    #another way to count possitive and negative values                
+    #windprob.append((tableA<0).sum()/len(tableA))
+    #windprob.append((tableA>0).sum()/len(tableA))
+    #this way doesn't work (*need to find why)
+    #neg_count = len(list(filter(lambda x: (x < 0), list1)))
+    #pos_count = len(list(filter(lambda x: (x >= 0), list1)))
+    
     return windprob
 	
 t=0
