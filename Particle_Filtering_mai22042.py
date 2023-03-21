@@ -16,14 +16,11 @@ tableB=[] #temporary table for saving values
 tableC=[] #weigh factor table
 posprob=[] #probability table
 windprob=[] #probability table
-savedpos=[]
-savedwind=[]
-
-
-
+savedpos=[] #savedresults
+savedwind=[] #savedresults
 
 def make_init(tableA):                      #initial condition creation
-    tableA=np.random.randint(1,4,int(10e3)) #number of samples generated for the problem can be changed here
+    tableA=np.random.randint(1,4,int(35000)) #number of samples generated for the problem can be changed here
     for i in range(len(tableA)):
 #       x=random.random()
 #       if x < 0.5 :                        #if i want to have random sign for the initial condition
@@ -46,13 +43,13 @@ def position(tableA):
     for i in range(len(tableA)):            #position values dont change for LE,RW
         x=random.random()
         if tableA[i] == -2 and x <= 0.5 :   #for CE
-            tableA[i] = -1
+            tableA[i] = -1                  #Change to LE
         if tableA[i] == -3 and x <= 0.5 :   #for RE
-            tableA[i] = -2
+            tableA[i] = -2                  #Change to CE
         if tableA[i] == 2 and x >= 0.5 :    #for CW
-            tableA[i] = 3
+            tableA[i] = 3                   #Change to RW
         if tableA[i] == 1 and x >= 0.5 :    #for LW
-            tableA[i] = 2 
+            tableA[i] = 2                   #Change to CW
     return tableA
 
 def weight_factor(tableC):
@@ -136,7 +133,7 @@ TableA contains the values after every transition for (time)t(i).
 TableB contains the next values (for t(i)+1) of TableA.
 TableC contains the Weight Factors of TableA for (time)t(i).
 Tableposprob contains Position's Probabilities : [ L , C , R ] asked for (time)t(i).
-Tablewindprob contains Wind's Probabilities : [ E , W ]  asked for (time)t(i).
+Tablewindprob contains Wind's Probabilities : [ E , W ] asked for (time)t(i).
 
 On every iteration equality of TableA and TableC is checked.
 Therefore it is normal to return False at last iteration, as 
