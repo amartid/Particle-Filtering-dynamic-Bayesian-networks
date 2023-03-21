@@ -16,16 +16,39 @@ tableB=[] #temporary table for saving values
 tableC=[] #weigh factor table
 posprob=[] #probability table
 windprob=[] #probability table
-savedpos=[] #savedresults
-savedwind=[] #savedresults
+savedpos=[]
+savedwind=[]
+
+
+
 
 def make_init(tableA):                      #initial condition creation
-    tableA=np.random.randint(1,4,int(35000)) #number of samples generated for the problem can be changed here
+    tableA=np.random.randint(1,4,int(10e2)) #number of samples generated for the problem can be changed here
     for i in range(len(tableA)):
 #       x=random.random()
 #       if x < 0.5 :                        #if i want to have random sign for the initial condition
-#       for the asked initial condition Wind is E (-) Negative t=0 (A0=E)
+#       for the asked initial condition Wind is E (-)
         tableA[i]=tableA[i]*(-1)
+    print('''
+Explanation:
+	
+1 is for Position Left L.
+2 is for Position Centre C.
+3 is for Position Right R.
+        
+(-) Negative Values are for East Wind E.
+(+) Possitive Values are for West Wind W.
+
+TableA contains the values after every transition for (time)t(i).
+TableB contains the next values (for t(i)+1) of TableA.
+TableC contains the Weight Factors of TableA for (time)t(i).
+Tableposprob contains Position's Probabilities : [ L , C , R ] asked for (time)t(i).
+Tablewindprob contains Wind's Probabilities : [ E , W ]  asked for (time)t(i).
+
+On every iteration equality of TableA and TableC is checked.
+Therefore it is normal to return False at last iteration, as 
+there are not any observations for t=4 according to the problem encountered.       
+''')
     return tableA
 
 def wind(tableA):
@@ -43,13 +66,13 @@ def position(tableA):
     for i in range(len(tableA)):            #position values dont change for LE,RW
         x=random.random()
         if tableA[i] == -2 and x <= 0.5 :   #for CE
-            tableA[i] = -1                  #Change to LE
-        if tableA[i] == -3 and x <= 0.5 :   #for RE
-            tableA[i] = -2                  #Change to CE
+            tableA[i] = -3
+        if tableA[i] == -1 and x <= 0.5 :   #for RE
+            tableA[i] = -2
         if tableA[i] == 2 and x >= 0.5 :    #for CW
-            tableA[i] = 3                   #Change to RW
+            tableA[i] = 3
         if tableA[i] == 1 and x >= 0.5 :    #for LW
-            tableA[i] = 2                   #Change to CW
+            tableA[i] = 2 
     return tableA
 
 def weight_factor(tableC):
@@ -119,26 +142,7 @@ def print_list(l,size):
     for x in l: 
         print(x[2])
 
-print('''
-Explanation:
-	
-1 is for Position Left L.
-2 is for Position Centre C.
-3 is for Position Right R.
-        
-(-) Negative Values are for East Wind E.
-(+) Possitive Values are for West Wind W.
 
-TableA contains the values after every transition for (time)t(i).
-TableB contains the next values (for t(i)+1) of TableA.
-TableC contains the Weight Factors of TableA for (time)t(i).
-Tableposprob contains Position's Probabilities : [ L , C , R ] asked for (time)t(i).
-Tablewindprob contains Wind's Probabilities : [ E , W ] asked for (time)t(i).
-
-On every iteration equality of TableA and TableC is checked.
-Therefore it is normal to return False at last iteration, as 
-there are not any observations for t=4 according to the problem encountered.       
-''')
 t=0
 tableA=make_init(tableA)
 #print('TableA has these values for t=0 : \n',tableA)
@@ -169,7 +173,7 @@ while t<4:
     print("\nWind's Probabilities : [ E , W ] = %a" %(windprob))
     tableC.clear()
     tableB.clear()
-print("\nThe results are :"
+print("The results are :"
 "\nP(X2) :",savedpos[0],
 "\nP(X3) :",savedpos[1],
 "\nP(X4) :",savedpos[2],
@@ -177,7 +181,7 @@ print("\nThe results are :"
 "\nP(A3) :",savedwind[1],
 "\nP(A4) :",savedwind[2])
 
-print("\nOr in Columns :")
+print("\nThe results are :")
 t=2
 for j in range(len(savedpos)):
     print("\nP(X%.i):" %(t))
