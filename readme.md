@@ -18,18 +18,6 @@ The transition model is as follows: (At table - .xls file)
 -  The direction of the wind, At, at time t depends on its direction At-1 at the previous time t-1, according to the following table:
 
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-t6k2{border-color:inherit;font-style:italic;font-weight:bold;text-align:center;vertical-align:middle}
-.tg .tg-lhti{font-style:italic;text-align:center;vertical-align:middle}
-.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
-.tg .tg-vrnj{border-color:inherit;font-style:italic;text-align:center;vertical-align:middle}
-.tg .tg-nrix{text-align:center;vertical-align:middle}
-</style>
 <table class="tg">
 <tbody>
   <tr>
@@ -57,17 +45,7 @@ The transition model is as follows: (At table - .xls file)
 That is, there is always a 70% chance for the wind to maintain its direction and a 30% chance to change it.
 
 -  The position Xt of the object at time t depends on its position Xt-1 and the direction of the wind At-1 at the previous time t-1, according to the following table:
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-t6k2{border-color:inherit;font-style:italic;font-weight:bold;text-align:center;vertical-align:middle}
-.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
-.tg .tg-uzvj{border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
-.tg .tg-vrnj{border-color:inherit;font-style:italic;text-align:center;vertical-align:middle}
-</style>
+
 <table class="tg">
 <tbody>
   <tr>
@@ -183,9 +161,28 @@ c) Find the most probable sequence of object positions and wind directions (comb
 
 Various sequences of camera observations are given:
 
-| e1 | e2 | e3 |
-|----|----|----|
-| C  | C  | C  |
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<tbody>
+  <tr>
+    <td class="tg-c3ow">e1</td>
+    <td class="tg-c3ow">e2</td>
+    <td class="tg-c3ow">e3</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">C</td>
+    <td class="tg-c3ow">C</td>
+    <td class="tg-c3ow">C</td>
+  </tr>
+</tbody>
+</table>
 
 ## Implementation
 
