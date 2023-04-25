@@ -179,3 +179,12 @@ Various sequences of camera observations are given:
 ## Implementation
 
 The project was implemented using Python programming language. The relevant solution for predicting the motion of the body and the most probable sequence of object positions and wind directions were implemented using particle filtering algorithm.
+
+
+## Code execution
+
+After printing the explanation of all tables and elements of the problem on the screen, the value 0 is given to t (time) and the method for constructing the initial state is called. Then, for t less than 4, the iteration of applying the position transition model, the wind transition model, and the calculation of the gravity coefficients follows. For t different than 4, sampling takes place. The values of the sampling are transferred to array A before the next iteration. Here, a check has been introduced to verify that the values have been copied correctly. Finally, for all cases, the values of the position probability and wind probability for array A are calculated and the results for each time are printed on the screen. Once all iterations are completed, the final results are printed in the form of arrays and columns.
+
+## Regarding the results
+
+Since the sampling is done with the randomness coefficient each time the code runs, there are different results, but there is a convergence of the values towards the values obtained with the Filtering-Smoothing method followed in Excel, and this is apparent and the goal (with a small deviation of the order of the 2nd decimal place).
